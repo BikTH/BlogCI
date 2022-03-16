@@ -1,12 +1,17 @@
 <div class="container py-4">
     <div class=" row justify-content-center">
         <div class="card-body p-0">
-            <div class="col-xl-8 offset-xl-2 col-lg-12 col-md-9">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-10 offset-md-1">
                 <div class="card bg-transparent text-sendary o-hidden border-0 my-5">
+                <h2 class="form-header text-primary text-center"> Welcome Back </h2>
                     <div class="row justify-content-center">
+                        <!-- <div class="col-lg-6 d-lg-block p-5 text-center d-none "> -->
+                        <div class="col-lg-6 d-lg-block p-5 text-center">
+                            <img src="<?= img_url('loginimg.svg') ?>" class="img-fluid" alt="login img">
+                        </div>
                         <div class="col-lg-6 p-5 text-secondary">
                             <form class="needs-validation" novalidate>
-                                <h2 class="form-header text-primary justify-content-left"> Welcome to your future favorite blog </h2>
+                                <!-- <h2 class="form-header text-primary justify-content-left"> Welcome Back </h2> -->
                                 <div class="mb-3">
                                     <input type="email" class=" rounded-0 form-control" placeholder="Email address" required>
                                     <div class="invalid-feedback">
@@ -48,10 +53,6 @@
                                     <span class="fw-bold">Sign up</span>
                                 </a>
                             </div>
-                        </div>
-                        <!-- <div class="col-lg-6 d-lg-block p-5 text-center d-none "> -->
-                        <div class="col-lg-6 d-lg-block p-5 text-center">
-                            <img src="<?= img_url('loginimg.svg') ?>" class="img-fluid" alt="login img">
                         </div>
                     </div>  
                 </div>
