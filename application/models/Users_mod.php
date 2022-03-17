@@ -14,12 +14,24 @@ class Users_mod extends CI_Model {
     //     $query = $this->db->get_where('users', array('slug' => $slug));
     //     return $query->row_array();
     // }
-    // // 
+    // //
 
-    //Form validation
-    public function register($data){
-
+    public function registeruser($data){
+        return $this->db->insert('user',$data);
     }
-     
+
+    public function loginuser($data){
+        $this->db->select('*');
+        $this->db->where('email',$data['email']);
+        $this->db->where('password',$data['password']);
+        $this->db->from('user');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if($query->num_rows()==1){
+            return $query->row();
+        }else{
+            return false;
+        }
+    }
 
 }
