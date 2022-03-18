@@ -38,6 +38,7 @@ class Users extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE)
         {
+            //Validataion of form failed
             $data['title'] = "Register"; // Capitalize the first letter
             $this->load->view('app/static/head', $data);
             $this->load->view('app/static/header', $data);
@@ -45,19 +46,94 @@ class Users extends CI_Controller {
             $this->load->view('app/static/footer', $data);
         }
         else{
+            //validation of form win
             $usermod = new Users_mod;
             $userdatas = array(
                 'pseudo' => $this->input->post('pseudo'),
                 'email' => $this->input->post('email'),
-                'password' => $this->input->post('password'),
+                'password' => md5($this->input->post('password')),
+                'day' => (int)$this->input->post('day'),
+                'month' => (int)$this->input->post('month'),
+                'year' => (int)$this->input->post('year'),
             );
+            
             $checking = $usermod->registeruser($userdatas);
             if ($checking){
-                $this->session->set_flashdata('status', );
+                //registration win
+                $userdata = array(
+                    'email' => $this->input->post('email'),
+                    'password' => md5($this->input->post('password')),
+                );
+                $this->loginwin($userdata);
+                //$this->session->set_flashdata('status','Welcome back ' );
             }else{
-
+                //registration failed 
+                $this->session->set_flashdata('status','An error occured :/' );
+                $data['title'] = "Register"; // Capitalize the first letter
+                $this->load->view('app/static/head', $data);
+                $this->load->view('app/static/header', $data);
+                $this->load->view('app/user/register', $data);
+                $this->load->view('app/static/footer', $data);
             }
         }
+    }
+
+    public function loginwin($userdatas){
+        $usermod = new Users_mod;
+        $checking = $usermod->loginuser($userdatas);
+
+        if ($checking != FALSE){
+            //login win
+            $authuserdetail = [
+                'email' => $checking->email,
+                'password' => $checking->password,
+                'pseudo' => $checking->pseudo,
+                'name' => $checking->name ,
+                'userid' => $checking->id ,
+                'phone' => $checking->phone ,
+                'gender' => $checking->gender ,
+                'country' => $checking->country ,
+                'town' => $checking->town ,
+                'day' => $checking->day ,
+                'month' => $checking->month ,
+                'year' => $checking->year ,
+                'status' => $checking->status ,
+                'is_admin' => $checking->is_admin ,
+                'user_avatar' => $checking->user_avatar ,
+                'bio' => $checking->bio ,
+                'uid' => $checking->uid ,
+                'dateof' => $checking->dateof ,
+            ];
+
+            $this->session->set_userdata('online', '1');
+            $this->session->set_userdata('onlineuser', $authuserdetail);
+
+            $this->session->set_flashdata('status', 'Welcome back '.$checking->pseudo );
+            $data['title'] = $checking->pseudo." homepage"; // Capitalize the first letter
+            $this->load->view('app/static/head', $data);
+            $this->load->view('app/static/header', $data);
+            $this->load->view('app/user/nav_user', $data);
+            $this->load->view('app/static/footer', $data);
+            
+            // $data['title'] = ""; // Capitalize the first letter
+            // $this->load->view('app/static/head', $data);
+            // $this->load->view('app/static/header', $data);
+            // $this->load->view('app/user/login', $data);
+            // $this->load->view('app/static/footer', $data);
+
+
+
+        }else{
+            //login failed
+            $this->session->set_flashdata('status', 'Invalid Email address or Password');
+            $data['title'] = "Login"; // Capitalize the first letter
+            $this->load->view('app/static/head', $data);
+            $this->load->view('app/static/header', $data);
+            $this->load->view('app/user/login', $data);
+            $this->load->view('app/static/footer', $data);
+        }
+
+
     }
 
     public function login(){
@@ -78,40 +154,22 @@ class Users extends CI_Controller {
             $usermod = new Users_mod;
             $userdatas = array(
                 'email' => $this->input->post('email'),
-                'password' => $this->input->post('password'),
+                'password' => md5($this->input->post('password')),
             );
-            $checking = $usermod->loginuser($userdatas);
-            if ($checking != FALSE){
-                //utilisateur réguliérement inscrit
-                $authuserdetail = [
-                    'email' => $checking->pseudo,
-                    'password' => $this->input->post('password'),
-                ];
-
-                $this->session->set_userdata('online', '1');
-                $this->session->set_userdata('onlineuser', $authuserdetail);
-
-                echo "vous êtes online";
-                
-                // $data['title'] = ""; // Capitalize the first letter
-                // $this->load->view('app/static/head', $data);
-                // $this->load->view('app/static/header', $data);
-                // $this->load->view('app/user/login', $data);
-                // $this->load->view('app/static/footer', $data);
-
-
-
-            }else{
-                //information absente en BD
-                $this->session->set_flashdata('status', 'Invalid Email address or Password');
-                $data['title'] = "Login"; // Capitalize the first letter
-                $this->load->view('app/static/head', $data);
-                $this->load->view('app/static/header', $data);
-                $this->load->view('app/user/login', $data);
-                $this->load->view('app/static/footer', $data);
-            }
+            $this->loginwin($userdatas);
         }
+    }
 
+    public function logout(){
+        $name = $this->session->userdata('onlineuser')['pseudo'];
+        $this->session->unset_userdata('online');
+        $this->session->unset_userdata('onlineuser');
 
+        $this->session->set_flashdata('status','See you soon '.$name.'       :)' );
+        $data['title'] = "Login"; // Capitalize the first letter
+        $this->load->view('app/static/head', $data);
+        $this->load->view('app/static/header', $data);
+        $this->load->view('app/user/login', $data);
+        $this->load->view('app/static/footer', $data);
     }
 } 

@@ -24,11 +24,11 @@ if ( ! function_exists('img_url'))
 	}
 }
 
-if ( ! function_exists('avatar_url'))
+if ( ! function_exists('img_url_avatar'))
 {
-	function avatar_url($nom)
+	function img_url_avatar($nom)
 	{
-		return base_url() . 'application/assets/img/avatars/' . $nom;
+		return base_url() . 'application/assets/img/profilepic/' . $nom;
 	}
 }
 
@@ -37,5 +37,21 @@ if ( ! function_exists('img'))
 	function img($nom, $alt = '')
 	{
 		return '<img src="' . img_url($nom) . '" alt="' . $alt . '" />';
+	}
+}
+
+if ( ! function_exists('online_or_no'))
+{
+	function online_or_no($test, $is_offline = NULL, $is_online = NULL )
+	{
+		if($test){
+            if($test == '1'){
+                return $is_online;
+            }else{
+                return $is_offline;
+            } 
+        }else{
+            return $is_offline;
+        }
 	}
 }

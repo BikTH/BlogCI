@@ -4,6 +4,13 @@
         <div class="card-body p-0">
             <div class="col-xl-10 offset-xl-1 col-lg-10 offset-lg-1 col-md-10 offset-md-1">
                 <div class="card bg-transparent text-sendary o-hidden border-0 my-5">
+                    <?php if($this->session->flashdata('status')): ?>
+                        <div class=" text-center alert alert-danger alert-dismissible fade show " role="alert">
+                            <?= $this->session->flashdata('status');?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php unset($_SESSION['status']);?>
+                    <?php endif; ?>
                     <h2 class="form-header text-primary text-center"> 
                         Please fill out the following form to join our community
                     </h2>

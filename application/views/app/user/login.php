@@ -1,16 +1,19 @@
 <div class="container py-4">
-    <div class=" row justify-content-center">
+    <div class=" row justify-content-center ">
         <div class="card-body p-0">
-            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-10 offset-md-1">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-10 offset-md-1 ">
                 <div class="card bg-transparent text-sendary o-hidden border-0 my-5">
-                <h2 class="form-header text-primary text-center"> Welcome Back </h2>
-                    <?php if($this->session->flashdata('status')): ?>
-                        <div class=" text-center alert alert-danger alert-dismissible fade show " role="alert">
-                            <?= $this->session->flashdata('status');?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <h2 class="form-header text-primary text-center"> Welcome Back </h2>
+                    <?php if(isset($_SESSION['status'])): ?>
+                        <?php if($this->session->flashdata('status')): ?>
+                            <div class=" text-center alert alert-danger alert-dismissible fade show " role="alert">
+                                <?= $this->session->flashdata('status');?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php unset($_SESSION['status']);?>
+                        <?php endif; ?>
                     <?php endif; ?>
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center d-flex align-items-center ">
                         <!-- <div class="col-lg-6 d-lg-block p-5 text-center d-none "> -->
                         <div class="col-lg-6 d-lg-block p-5 text-center">
                             <img src="<?= img_url('loginimg.svg') ?>" class="img-fluid" alt="login img">
