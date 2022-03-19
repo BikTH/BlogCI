@@ -55,3 +55,27 @@ if ( ! function_exists('online_or_no'))
         }
 	}
 }
+
+if ( ! function_exists('empty_or_no'))
+{
+	function empty_or_no($test)
+	{
+        if($test == NULL ){
+            return TRUE;
+        }else{
+            return FALSE;
+        } 
+	}
+}
+
+if ( ! function_exists('empty_or_no'))
+{
+	function empty_or_no($test)
+	{
+        if($test == NULL ){
+            return TRUE;
+        }else{
+            return FALSE;
+        } 
+	}
+}

@@ -113,6 +113,7 @@ class Users extends CI_Controller {
             $this->load->view('app/static/head', $data);
             $this->load->view('app/static/header', $data);
             $this->load->view('app/user/nav_user', $data);
+            $this->load->view('app/homepage/home', $data);
             $this->load->view('app/static/footer', $data);
             
             // $data['title'] = ""; // Capitalize the first letter

@@ -55,3 +55,13 @@ $route['(:any)'] = 'pages/$1';
 // $route['default_controller'] = 'pages/view';
 // $route['404_override'] = '';
 // $route['translate_uri_dashes'] = FALSE;
+
+// $route['404_override'] = '';
+// $route['^en/(.+)$'] = "$1";
+// $route['^fr/(.+)$'] = "$1";
+// $route['^es/(.+)$'] = "$1";
+
+
+// $route['^en$'] = $route['default_controller'];
+// $route['^fr$'] = $route['default_controller'];
+// $route['^es$'] = $route['default_controller'];
